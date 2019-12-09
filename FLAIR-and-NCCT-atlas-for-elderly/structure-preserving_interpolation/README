@@ -1,0 +1,41 @@
+
+imiSliceInterpolation
+
+This is C++ code to implement the slice-wise registration-based interpolation 
+of 3D input images as described in:
+  Ehrhardt, J., Säring, D., & Handels, H. (2007). Structure-preserving interpolation 
+  of temporal and spatial image sequences using an optical flow-based method. 
+  Methods of information in medicine, 46(03), 300-307.
+Please cite this paper if you use this code in your research projects.
+
+Instead of the optical-flow based registration method, we use a symmetric diffeomorph
+variational registration with demon forces and diffusive regularization. See 
+  Werner, R., Schmidt-Richberg, A., Handels, H., & Ehrhardt, J. (2014). Estimation 
+  of lung motion fields in 4D CT data by variational non-linear intensity-based 
+  registration: A comparison and evaluation study. 
+  Physics in Medicine & Biology, 59(15), 4247.
+for a description of the registration method.
+
+
+To compile and install the source code you need:
+CMake - 3.10.1 or higher
+ITK   - 4.9.1 or higher (untested for version >= 5.0.0)
+        Compile ITK with remote module VariationalRegistration 
+        (set Module_VariationalRegistration ON) 
+
+To compile and test the code use:
+
+mkdir build
+cd build
+cmake -D CMAKE_BUILD_TYPE=Release ../src
+make
+bin/imiSliceInterpolation -I INPUT_IMAGE -O OUTPUT_IMAGE -a 3 -l 6 -i 1000
+
+This will take some time.
+
+INPUT_IMAGE and OUTPUT_IMAGE must be 3D images and use file formats readable/writeable by ITK
+
+The result should be identical to data/boss001.1_t2_highres.nii.gz .
+
+Send feedback to Jan Ehrhardt <ehrhardt@imi.uni-luebeck.de>.
+
